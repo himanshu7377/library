@@ -12,7 +12,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-console.log('Environment Variables:', process.env);
+
 
 
 console.log('MongoDB URI:', process.env.MONGODB_URI);
