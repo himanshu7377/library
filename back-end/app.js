@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3001;
 
 
 
-console.log('MongoDB URI:', process.env.MONGODB_URI);
+// console.log('MongoDB URI:', process.env.MONGODB_URI);
 
 
 // Connect to MongoDB
@@ -33,6 +33,12 @@ app.use(morgan('dev')); // Log HTTP requests to the console
 // Routes
 // app.use('/auth', authRoutes);
 // app.use('/books', bookRoutes);
+const authRoutes = require('./routes/authRoutes');
+const bookRoutes = require('./routes/bookRoutes');
+const authMiddleware = require('./middleware/authMiddleware');
+
+app.use('/auth', authRoutes);
+app.use('/books', authMiddleware.checkRole('USER'), bookRoutes); // Apply middleware to book routes
 
 // Error handling middleware
 app.use((err, req, res, next) => {
