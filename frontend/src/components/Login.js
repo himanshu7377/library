@@ -12,12 +12,14 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       setLoading(true);
-      
+      const token = localStorage.getItem('token');
+        // console.log(token)
 
       const response = await fetch('http://localhost:3001/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
          
         },
         body: JSON.stringify({ username, password }),
@@ -29,6 +31,7 @@ const Login = () => {
       if (response.ok) {
         localStorage.setItem('token', responseData.token);
         console.log('Login successful!');
+        // console.log(responseData.token)
         navigate('/books');
       } else {
         console.error('Login failed:', responseData.msg);

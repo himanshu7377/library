@@ -19,11 +19,13 @@ const BookList = () => {
   
         const response = await fetch('http://localhost:3001/books', {
           headers: {
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
         });
   
         const data = await response.json();
+        // console.log(data)
         setBooks(data);
       } catch (error) {
         console.error('Error fetching books:', error.message);

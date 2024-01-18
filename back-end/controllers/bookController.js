@@ -33,6 +33,7 @@ exports.getAllBooks = async (req, res) => {
     const books = await Book.find();
 
     res.json(books);
+    console.log(res)
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server Error');
