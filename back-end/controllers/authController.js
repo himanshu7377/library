@@ -70,7 +70,7 @@ exports.loginUser = async (req, res) => {
 
     // Create and send JWT token
     const payload = { user: { id: user.id } };
-    const token = jwt.sign(payload, "abc", { expiresIn: '24h' });
+    const token = jwt.sign(payload, "secret", { expiresIn: '24h' });
 
     res.json({ token });
   } catch (error) {

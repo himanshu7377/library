@@ -38,7 +38,7 @@ const bookRoutes = require('./routes/bookRoutes');
 const authMiddleware = require('./middleware/authMiddleware');
 
 app.use('/auth', authRoutes);
-app.use('/books', authMiddleware.checkRole('USER'), bookRoutes); // Apply middleware to book routes
+app.use( bookRoutes); // Apply middleware to book routes
 
 // Error handling middleware
 app.use((err, req, res, next) => {

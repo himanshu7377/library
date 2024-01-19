@@ -13,7 +13,7 @@ exports.checkRole = (role) => async (req, res, next) => {
 
   try {
     console.log("running")
-    const decoded = jwt.verify(token, "abc");
+    const decoded = jwt.verify(token,"secret");
     console.log(decoded)
 
     const user = await User.findById(decoded.user.id);
@@ -26,6 +26,7 @@ exports.checkRole = (role) => async (req, res, next) => {
     console.log(decoded)
     next();
   } catch (error) {
+    console.log(error)
     res.status(401).json({ msg: 'Invalid token' });
   }
 };

@@ -20,7 +20,7 @@ const BookList = () => {
         const response = await fetch('http://localhost:3001/books', {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
+            'x-auth-token': token,
           },
         });
   
@@ -52,7 +52,7 @@ const BookList = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
+          'x-auth-token': token, // Include the token in the Authorization header
         },
         body: JSON.stringify(newBook),
       });
