@@ -10,8 +10,8 @@ exports.createBook = async (req, res) => {
   }
 
   // Extract data from request body
-  const { title, author } = req.body;
-  const createdBy = req.user.id; // User ID from authentication middleware
+  const { title, author,id } = req.body;
+  const createdBy = req.user; // User ID from authentication middleware
 
   try {
     // Create a new book
@@ -33,7 +33,7 @@ exports.getAllBooks = async (req, res) => {
     const books = await Book.find();
 
     res.json(books);
-    console.log(res)
+    
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server Error');

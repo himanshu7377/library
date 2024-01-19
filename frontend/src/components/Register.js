@@ -18,14 +18,16 @@ const Register = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password, roles: [role] }),
+        body: JSON.stringify({ username, password, role }),
       });
 
       const responseData = await response.json();
-      console.log(responseData)
+      // console.log(responseData)
 
       if (response.ok) {
         console.log('Registration successful:', responseData.msg);
+        localStorage.setItem('username', username);
+        localStorage.setItem('role', role);
         navigate('/login');
       } else {
         console.error('Registration failed:', responseData.msg);

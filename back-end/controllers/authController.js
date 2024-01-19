@@ -15,14 +15,14 @@ exports.registerUser = async (req, res) => {
   const { username, password, role } = req.body;
 
   try {
-    console.log('Registration Request Data:', { username, password, role });
+    // console.log('Registration Request Data:', { username, password, role });
 
     // Check if the user already exists
-    let user = await User.findOne({ username });
     if (user) {
       console.log('User already exists:', user);
       return res.status(400).json({ msg: 'User already exists' });
     }
+    let user = await User.findOne({ username });
 
     // Create a new user
     user = new User({ username, password, role });
@@ -36,7 +36,7 @@ exports.registerUser = async (req, res) => {
 
     res.status(201).json({ msg: 'User registered successfully' });
   } catch (error) {
-    console.error('Registration Error:', error.message);
+    // console.error('Registration Error:', error.message);
     res.status(500).send('Server Error');
   }
 };
@@ -52,7 +52,7 @@ exports.loginUser = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    console.log('Login Request Data:', { username, password });
+    // console.log('Login Request Data:', { username, password });
 
     // Check if the user exists
     const user = await User.findOne({ username });
@@ -69,10 +69,11 @@ exports.loginUser = async (req, res) => {
     }
 
     // Create and send JWT token
-    const payload = { user: { id: user.id } };
+    console.log("userRole from authcontroller",user.role)
+    const payload = { user: { id: user.id ,role: user.role},  };
     const token = jwt.sign(payload, "secret", { expiresIn: '24h' });
 
-    res.json({ token });
+    res.json({ token ,role: user.role});
   } catch (error) {
     console.error('Login Error:', error.message);
     res.status(500).send('Server Error');

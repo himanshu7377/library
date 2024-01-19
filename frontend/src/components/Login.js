@@ -5,6 +5,7 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [role,setRole]=useState('')
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const Login = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-        // console.log(token)
+        
 
       const response = await fetch('http://localhost:3001/auth/login', {
         method: 'POST',
@@ -26,12 +27,13 @@ const Login = () => {
       });
 
       const responseData = await response.json();
-      console.log(responseData);
+      
 
       if (response.ok) {
         localStorage.setItem('token', responseData.token);
+        localStorage.setItem('role', responseData.role);
         console.log('Login successful!');
-        // console.log(responseData.token)
+        
         navigate('/books');
       } else {
         console.error('Login failed:', responseData.msg);
